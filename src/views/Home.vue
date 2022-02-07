@@ -1,18 +1,18 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <v-container>
+    <h1>{{ $t('common.order') }}</h1>
+    <multi-table />
+  </v-container>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
+import MultiTable from '../components/multi-table.vue';
 
 export default {
-  name: "Home",
+  name: 'Home',
+
   components: {
-    HelloWorld,
+    MultiTable,
   },
 };
 </script>
