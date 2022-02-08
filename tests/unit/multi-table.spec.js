@@ -101,7 +101,7 @@ const propsData = {
   expanded: [],
   selected: [],
   singleExpand: false,
-  selectedMenu: {},
+  menu: {},
   categoryHeaders: [
     {
       fixed: true,

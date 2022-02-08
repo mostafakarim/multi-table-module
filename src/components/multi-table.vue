@@ -2,9 +2,9 @@
   <!-- eslint-disable vue/valid-v-slot -->
   <v-container>
     <v-data-table
-      v-if="selectedMenu"
+      v-if="menu"
       :headers="categoryHeaders"
-      :items="selectedMenu.categories"
+      :items="menu.categories"
       :single-expand="false"
       v-model="expanded"
       hide-default-header
@@ -46,25 +46,30 @@
           </v-data-table>
         </td>
       </template>
-      <template v-if="selectedMenu.total >= 0" v-slot:body.append="{}">
+      <template v-if="menu.total >= 0" v-slot:body.append="{}">
         <td class="text-left px-4 py-2">{{ $t('common.total') }}</td>
-        <td class="text-right px-4 py-2">{{ selectedMenu.total }} €</td>
+        <td class="text-right px-4 py-2">{{ menu.total }} €</td>
       </template>
     </v-data-table>
   </v-container>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'MultiTable',
+  props: {
+    menu: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
   data() {
     return {
       expanded: [],
       selected: [],
       singleExpand: false,
-      selectedMenu: {},
       categoryHeaders: [
         {
           text: 'Item',
@@ -113,17 +118,10 @@ export default {
       ],
     };
   },
-  computed: {
-    ...mapState(['menu']),
-  },
-  async mounted() {
-    await this.getMenu();
-    this.selectedMenu = this.menu;
-  },
   methods: {
-    ...mapActions(['getMenu', 'updateMenu']),
+    ...mapActions(['updateMenu']),
     updatePrice: async function () {
-      await this.updateMenu(this.selectedMenu);
+      await this.updateMenu(this.menu);
     },
   },
 };
